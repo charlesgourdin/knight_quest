@@ -1,32 +1,82 @@
-import Phaser from "phaser";
-import logoImg from "./assets/logo.png";
+import Phaser from 'phaser';
+
+import { player } from './objects/player';
+import { world } from './objects/world';
 
 const config = {
   type: Phaser.AUTO,
-  parent: "phaser-example",
+  backgroundColor: '#f8e9cb',
   width: 800,
   height: 600,
   scene: {
-    preload: preload,
-    create: create
-  }
+    preload,
+    create,
+    update,
+  },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 500 },
+    },
+  },
 };
 
 const game = new Phaser.Game(config);
 
+const gameContent = {
+  scene: null,
+  world,
+  player,
+  cursor: null,
+};
+
 function preload() {
-  this.load.image("logo", logoImg);
+  gameContent.scene = this;
+  const { scene, cursor } = gameContent;
+
+  scene.load.image('tiles', '../assets/images/tilesheet.png');
+  scene.load.tilemapTiledJSON('map', '../assets/json/map.json');
+
+  scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
 }
 
 function create() {
-  const logo = this.add.image(400, 150, "logo");
+  const { scene, player, world } = gameContent;
 
-  this.tweens.add({
-    targets: logo,
-    y: 450,
-    duration: 2000,
-    ease: "Power2",
-    yoyo: true,
-    loop: -1
-  });
+  world.initMap(scene);
+
+  player.initPlayer(scene);
+  player.generatePlayerAnimations(scene);
+  player.hero.anims.play('player_idle');
+
+  world.addCollider(scene, player);
+
+  gameContent.cursor = scene.input.keyboard.createCursorKeys();
+
+  world.handleCamera(scene, player);
+}
+
+function update(time, delta) {
+  const { player, cursor } = gameContent;
+
+  player.moveHero(cursor);
+  handleScreenSize();
+}
+
+function handleScreenSize() {
+  const canvas = document.querySelector('canvas');
+
+  const winWidth = window.innerWidth;
+  const winHeight = window.innerHeight;
+  const winRatio = winWidth / winHeight;
+
+  const gameRatio = config.width / config.height;
+
+  if (winRatio < gameRatio) {
+    canvas.style.width = `${winWidth}px`;
+    canvas.style.height = `${winWidth / gameRatio}px`;
+  } else {
+    canvas.style.width = `${winHeight * gameRatio}px`;
+    canvas.style.height = `${winHeight}px`;
+  }
 }
