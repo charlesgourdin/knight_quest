@@ -1,3 +1,5 @@
+import { world } from './world';
+
 export const player = {
   hero: null,
   isJumping: false,
@@ -5,9 +7,12 @@ export const player = {
   isUpPressed: false,
 
   initPlayer(scene) {
-    this.hero = scene.physics.add.sprite(50, 280, 'player', 'HeroKnight_Idle_0');
+    this.hero = scene.physics.add.sprite(
+      world.startposition.x, world.startposition.y, 'player', 'HeroKnight_Idle_0'
+      );
     this.hero.setCollideWorldBounds(true);
     this.hero.setSize(30, 50, true);
+    this.hero.setOrigin(0.5, 1);
   },
   generatePlayerAnimations(scene) {
     scene.anims.create({
