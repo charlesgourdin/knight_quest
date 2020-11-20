@@ -27,7 +27,7 @@ const gameContent = {
   scene: null,
   world,
   player,
-  cursor: null,
+  cursor: null, 
 };
 
 function preload() {
@@ -35,6 +35,7 @@ function preload() {
   const { scene, cursor } = gameContent;
 
   scene.load.image('tiles', '../assets/images/tilesheet.png');
+  scene.load.image('items', '../assets/images/items.png');
   scene.load.tilemapTiledJSON('map', '../assets/json/map.json');
 
   scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
