@@ -23,7 +23,7 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-const gameContent = {
+export const gameContent = {
   scene: null,
   world,
   player,
@@ -33,12 +33,14 @@ const gameContent = {
 function preload() {
   gameContent.scene = this;
   const { scene, cursor } = gameContent;
-
   scene.load.image('tiles', '../assets/images/tilesheet.png');
   scene.load.image('items', '../assets/images/items.png');
   scene.load.tilemapTiledJSON('map', '../assets/json/map.json');
 
   scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
+
+  scene.load.audio('gemSound', '../assets/sounds/gem.ogg');
+  scene.load.audio('sword1', '../assets/sounds/sword1.ogg');
 }
 
 function create() {

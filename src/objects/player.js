@@ -1,3 +1,4 @@
+import { gameContent } from '../index';
 import { world } from './world';
 
 export const player = {
@@ -5,6 +6,7 @@ export const player = {
   isJumping: false,
   isAttack: false,
   isUpPressed: false,
+  isSpacePressed: false,
 
   initPlayer(scene) {
     this.hero = scene.physics.add.sprite(
@@ -69,8 +71,17 @@ export const player = {
       this.isJumping = true;
     }
 
-    if (cursor.space.isDown || this.isAttack) {
+    if (cursor.space.isDown && !this.isSpacePressed) {
+      gameContent.scene.sound.play('sword1');
       this.isAttack = true;
+      this.isSpacePressed = true;
+    }
+
+    if (cursor.space.isUp) {
+      this.isSpacePressed = false;
+    }
+
+    if (this.isAttack) {
       this.hero.anims.play('player_attack', true);
       if (this.hero.anims.currentFrame.index === 5) {
         this.isAttack = false;

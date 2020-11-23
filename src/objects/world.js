@@ -1,3 +1,5 @@
+import { gameContent } from '../index';
+
 export const world = {
   tileMap: null,
   tileSet: null,
@@ -10,6 +12,7 @@ export const world = {
   startposition: null,
   score: 0,
   scoreText: null,
+  worldSound : null,
   initMap(scene) {
     const fontStyle = {
       fontSize: '1.5rem',
@@ -49,6 +52,7 @@ export const world = {
     );
   },
   collectGem(player, tile) {
+    gameContent.scene.sound.play('gemSound')
     this.overlapLayer.removeTileAt(tile.x, tile.y).destroy();
     this.score += 1;
     this.scoreText.setText(`Score : ${this.score}`);
