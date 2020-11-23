@@ -1,4 +1,5 @@
-import { gameContent } from '../index';
+import Phaser from 'phaser';
+import { game, gameContent } from '../index';
 
 export const world = {
   tileMap: null,
@@ -13,6 +14,7 @@ export const world = {
   score: 0,
   scoreText: null,
   worldSound : null,
+  gameOver: false,
   initMap(scene) {
     const fontStyle = {
       fontSize: '1.5rem',
@@ -42,6 +44,7 @@ export const world = {
   },
   addCollider(scene, player) {
     this.overlapLayer.setTileIndexCallback(98, this.collectGem, this);
+    this.overlapLayer.setTileIndexCallback(166, this.killPlayer, this);
     scene.physics.add.collider(player.hero, this.worldLayer);
     scene.physics.add.overlap(player.hero, this.overlapLayer);
   },
@@ -57,4 +60,34 @@ export const world = {
     this.score += 1;
     this.scoreText.setText(`Score : ${this.score}`);
   },
+  killPlayer() {
+    const { midPoint } = gameContent.scene.cameras.main;
+
+    if(!this.gameOver) {
+      this.gameOver = true;
+      gameContent.player.killPlayer();
+      gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
+
+      const fontStyle = {
+        fontSize: '3rem',
+        color: '#5d0000',
+        fontFamily: 'MedievalSharp',
+        align: 'center'
+      };
+
+      gameContent.scene.add.text(midPoint.x, midPoint.y - 50, 'You are \ndead', fontStyle).setOrigin(0.5, 0.5)
+
+      let container = gameContent.scene.add.container(50, 50);;
+      container.setPosition(midPoint.x + 45, midPoint.y + 100);
+      const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
+      var text = gameContent.scene.add.text(0, 0, 'Restart');
+      text.setOrigin(0.5, 0.5);
+      container.add(restartButton);
+      container.add(text);
+
+      restartButton.on("pointerup", function(){
+        gameContent.scene.scene.restart();
+      });
+    }
+  }
 };

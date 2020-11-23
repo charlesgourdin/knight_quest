@@ -21,7 +21,7 @@ const config = {
   },
 };
 
-const game = new Phaser.Game(config);
+export const game = new Phaser.Game(config);
 
 export const gameContent = {
   scene: null,
@@ -35,12 +35,20 @@ function preload() {
   const { scene, cursor } = gameContent;
   scene.load.image('tiles', '../assets/images/tilesheet.png');
   scene.load.image('items', '../assets/images/items.png');
+  scene.load.image('parchment', '../assets/images/parchment.png');
+  scene.load.image('restart', '../assets/images/restart.png');
+
   scene.load.tilemapTiledJSON('map', '../assets/json/map.json');
 
   scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
 
   scene.load.audio('gemSound', '../assets/sounds/gem.ogg');
   scene.load.audio('sword1', '../assets/sounds/sword1.ogg');
+
+  player.isAlive = true;
+  player.gameOver = false;
+  world.gameOver = false;
+  world.score = 0;
 }
 
 function create() {

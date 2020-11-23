@@ -7,10 +7,12 @@ export const player = {
   isAttack: false,
   isUpPressed: false,
   isSpacePressed: false,
+  isAlive: true,
+  gameOver: false,
 
   initPlayer(scene) {
     this.hero = scene.physics.add.sprite(
-      world.startposition.x, world.startposition.y, 'player', 'HeroKnight_Idle_0'
+      world.startposition.x, world.startposition.y - 30, 'player', 'HeroKnight_Idle_0'
       );
     this.hero.setCollideWorldBounds(true);
     this.hero.setSize(30, 50, true);
@@ -44,56 +46,79 @@ export const player = {
       frameRate: 10,
       repeat: 0,
     });
+
+    scene.anims.create({
+      key: 'player_death',
+      frames: scene.anims.generateFrameNames('player', { prefix: 'HeroKnight_Death_', start: 6, end: 9 }),
+      frameRate: 10,
+      repeat: 0,
+    });
   },
   moveHero(cursor) {
-    if (cursor.left.isDown) {
-      this.hero.setVelocityX(-175);
-      this.hero.setFlip(true, false);
-    } else if (cursor.right.isDown) {
-      this.hero.setVelocityX(175);
-      this.hero.setFlip(false, false);
-    } else {
-      this.hero.setVelocityX(0);
-    }
-
-    if (cursor.up.isDown && this.hero.body.onFloor() && !this.isUpPressed) {
-      this.isUpPressed = true;
-      this.hero.setVelocityY(-300);
-    }
-
-    if (cursor.up.isUp) {
-      this.isUpPressed = false;
-    }
-
-    if (this.hero.body.onFloor()) {
-      this.isJumping = false;
-    } else {
-      this.isJumping = true;
-    }
-
-    if (cursor.space.isDown && !this.isSpacePressed) {
-      gameContent.scene.sound.play('sword1');
-      this.isAttack = true;
-      this.isSpacePressed = true;
-    }
-
-    if (cursor.space.isUp) {
-      this.isSpacePressed = false;
-    }
-
-    if (this.isAttack) {
-      this.hero.anims.play('player_attack', true);
-      if (this.hero.anims.currentFrame.index === 5) {
-        this.isAttack = false;
+    if(this.isAlive && !this.gameOver) {
+      if (cursor.left.isDown) {
+        this.hero.setVelocityX(-175);
+        this.hero.setFlip(true, false);
+      } else if (cursor.right.isDown) {
+        this.hero.setVelocityX(175);
+        this.hero.setFlip(false, false);
+      } else {
+        this.hero.setVelocityX(0);
       }
-    } else if (this.isJumping) {
-      this.hero.anims.play('player_jump', true);
-    } else if (cursor.left.isDown) {
-      this.hero.anims.play('player_run', true);
-    } else if (cursor.right.isDown) {
-      this.hero.anims.play('player_run', true);
+  
+      if (cursor.up.isDown && this.hero.body.onFloor() && !this.isUpPressed) {
+        this.isUpPressed = true;
+        this.hero.setVelocityY(-300);
+      }
+  
+      if (cursor.up.isUp) {
+        this.isUpPressed = false;
+      }
+  
+      if (this.hero.body.onFloor()) {
+        this.isJumping = false;
+      } else {
+        this.isJumping = true;
+      }
+  
+      if (cursor.space.isDown && !this.isSpacePressed) {
+        gameContent.scene.sound.play('sword1');
+        this.isAttack = true;
+        this.isSpacePressed = true;
+      }
+  
+      if (cursor.space.isUp) {
+        this.isSpacePressed = false;
+      }
+  
+      if (this.isAttack) {
+        this.hero.anims.play('player_attack', true);
+        if (this.hero.anims.currentFrame.index === 5) {
+          this.isAttack = false;
+        }
+      } else if (this.isJumping) {
+        this.hero.anims.play('player_jump', true);
+      } else if (cursor.left.isDown) {
+        this.hero.anims.play('player_run', true);
+      } else if (cursor.right.isDown) {
+        this.hero.anims.play('player_run', true);
+      } else {
+        this.hero.anims.play('player_idle', true);
+      }
     } else {
-      this.hero.anims.play('player_idle', true);
+      if(!this.gameOver) {
+        this.hero.setVelocityX(0);
+        this.hero.anims.play('player_death', true);
+        this.hero.on('animationcomplete', function (sprite)
+        {
+          this.gameOver = true;
+        }, this);
+      } else {
+        this.hero.setTexture('player', 'HeroKnight_Death_9')
+      }
     }
   },
+  killPlayer() {
+    this.isAlive = false;
+  }
 };
