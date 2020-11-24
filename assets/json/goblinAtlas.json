@@ -1,0 +1,235 @@
+{
+  "frames": [
+    {
+      "filename": "goblin_attack_0",
+      "frame": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_1",
+      "frame": { "x": 0, "y": 65, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_3",
+      "frame": { "x": 0, "y": 130, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_4",
+      "frame": { "x": 101, "y": 0, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_2",
+      "frame": { "x": 101, "y": 65, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_5",
+      "frame": { "x": 101, "y": 130, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_6",
+      "frame": { "x": 0, "y": 195, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_attack_7",
+      "frame": { "x": 101, "y": 195, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_death_0",
+      "frame": { "x": 202, "y": 0, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_death_1",
+      "frame": { "x": 202, "y": 65, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_death_2",
+      "frame": { "x": 202, "y": 130, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_death_3",
+      "frame": { "x": 202, "y": 195, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_idle_0",
+      "frame": { "x": 0, "y": 260, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_idle_1",
+      "frame": { "x": 101, "y": 260, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_idle_2",
+      "frame": { "x": 202, "y": 260, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_idle_3",
+      "frame": { "x": 0, "y": 325, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_0",
+      "frame": { "x": 101, "y": 325, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_1",
+      "frame": { "x": 202, "y": 325, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_2",
+      "frame": { "x": 303, "y": 0, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_3",
+      "frame": { "x": 303, "y": 65, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_4",
+      "frame": { "x": 303, "y": 130, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_5",
+      "frame": { "x": 303, "y": 195, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_6",
+      "frame": { "x": 303, "y": 260, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_run_7",
+      "frame": { "x": 303, "y": 325, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_takeHit_0",
+      "frame": { "x": 0, "y": 390, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_takeHit_1",
+      "frame": { "x": 101, "y": 390, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_takeHit_2",
+      "frame": { "x": 202, "y": 390, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    },
+    {
+      "filename": "goblin_takeHit_3",
+      "frame": { "x": 303, "y": 390, "w": 100, "h": 64 },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 64 },
+      "sourceSize": { "w": 100, "h": 64 }
+    }
+  ],
+  "meta": {
+    "app": "https://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8.4",
+    "image": "goblin.png",
+    "size": { "w": 403, "h": 454 },
+    "scale": 1
+  }
+}

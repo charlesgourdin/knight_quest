@@ -93,8 +93,10 @@ export const player = {
   
       if (this.isAttack) {
         this.hero.anims.play('player_attack', true);
+        this.hero.setSize(70, 50, true);
         if (this.hero.anims.currentFrame.index === 5) {
           this.isAttack = false;
+          this.hero.setSize(30, 50, true);
         }
       } else if (this.isJumping) {
         this.hero.anims.play('player_jump', true);

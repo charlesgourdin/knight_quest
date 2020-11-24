@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 
 import { player } from './objects/player';
+import { enemy } from './objects/enemy';
 import { world } from './objects/world';
 
 const config = {
@@ -27,6 +28,7 @@ export const gameContent = {
   scene: null,
   world,
   player,
+  enemy,
   cursor: null, 
 };
 
@@ -41,9 +43,11 @@ function preload() {
   scene.load.tilemapTiledJSON('map', '../assets/json/map.json');
 
   scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
+  scene.load.atlas('goblin', '../assets/images/goblin.png', '../assets/json/goblinAtlas.json');
 
   scene.load.audio('gemSound', '../assets/sounds/gem.ogg');
   scene.load.audio('sword1', '../assets/sounds/sword1.ogg');
+  scene.load.audio('hit', '../assets/sounds/hit.ogg');
 
   player.isAlive = true;
   player.gameOver = false;
@@ -52,15 +56,21 @@ function preload() {
 }
 
 function create() {
-  const { scene, player, world } = gameContent;
+  const { scene, player, enemy, world } = gameContent;
 
   world.initMap(scene);
+
+  enemy.initGoblin(scene);
+  enemy.generateGoblinAnimations(scene);
+  enemy.moveGoblin();
+
 
   player.initPlayer(scene);
   player.generatePlayerAnimations(scene);
   player.hero.anims.play('player_idle');
 
-  world.addCollider(scene, player);
+
+  world.addCollider(scene, player, enemy);
 
   gameContent.cursor = scene.input.keyboard.createCursorKeys();
 

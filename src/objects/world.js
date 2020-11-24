@@ -42,11 +42,15 @@ export const world = {
       0, 0, this.tileMap.widthInPixels, this.tileMap.heightInPixels,
     );
   },
-  addCollider(scene, player) {
+  addCollider(scene, player, enemy) {
     this.overlapLayer.setTileIndexCallback(98, this.collectGem, this);
     this.overlapLayer.setTileIndexCallback(166, this.killPlayer, this);
     scene.physics.add.collider(player.hero, this.worldLayer);
     scene.physics.add.overlap(player.hero, this.overlapLayer);
+
+    scene.physics.add.collider(enemy.goblin, this.worldLayer);
+    scene.physics.add.overlap(player.hero, enemy.goblin, this.attackGoblin);
+
   },
   handleCamera(scene, player) {
     scene.cameras.main.startFollow(player.hero);
@@ -66,28 +70,38 @@ export const world = {
     if(!this.gameOver) {
       this.gameOver = true;
       gameContent.player.killPlayer();
-      gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
 
-      const fontStyle = {
-        fontSize: '3rem',
-        color: '#5d0000',
-        fontFamily: 'MedievalSharp',
-        align: 'center'
-      };
+      setTimeout(function() {
+        gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
 
-      gameContent.scene.add.text(midPoint.x, midPoint.y - 50, 'You are \ndead', fontStyle).setOrigin(0.5, 0.5)
+        const fontStyle = {
+          fontSize: '3rem',
+          color: '#5d0000',
+          fontFamily: 'MedievalSharp',
+          align: 'center'
+        };
 
-      let container = gameContent.scene.add.container(50, 50);;
-      container.setPosition(midPoint.x + 45, midPoint.y + 100);
-      const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
-      var text = gameContent.scene.add.text(0, 0, 'Restart');
-      text.setOrigin(0.5, 0.5);
-      container.add(restartButton);
-      container.add(text);
+        gameContent.scene.add.text(midPoint.x, midPoint.y - 50, 'You are \ndead', fontStyle).setOrigin(0.5, 0.5)
 
-      restartButton.on("pointerup", function(){
-        gameContent.scene.scene.restart();
-      });
+        let container = gameContent.scene.add.container(50, 50);;
+        container.setPosition(midPoint.x + 45, midPoint.y + 100);
+        const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
+        var text = gameContent.scene.add.text(0, 0, 'Restart');
+        text.setOrigin(0.5, 0.5);
+        container.add(restartButton);
+        container.add(text);
+
+        restartButton.on("pointerup", function(){
+          gameContent.scene.scene.restart();
+        });
+      }, 1000);
+    }
+  }, 
+  attackGoblin() {
+    if(gameContent.player.isAttack) {
+      gameContent.enemy.killGoblin();
+    } else {
+      gameContent.world.killPlayer();
     }
   }
 };
