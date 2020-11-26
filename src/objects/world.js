@@ -11,6 +11,7 @@ export const world = {
   worldLayer: null,
   backgroundLayer: null,
   startposition: null,
+  goblin1Start: null,
   score: 0,
   scoreText: null,
   worldSound : null,
@@ -35,6 +36,7 @@ export const world = {
 
     this.startposition = this.tileMap.findObject('Objects', obj => obj.name === 'start');
 
+    this.goblin1Start = this.tileMap.findObject('Objects', obj => obj.name === 'goblin1Start');
 
     this.worldLayer.setCollisionByProperty({ Collides: true });
 

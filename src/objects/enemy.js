@@ -22,7 +22,7 @@ export const enemy = {
     scene.anims.create({
       key: 'goblin_run',
       frames: scene.anims.generateFrameNames('goblin', { prefix: 'goblin_run_', start: 0, end: 7 }),
-      frameRate: 10,
+      frameRate: 7,
       repeat: -1,
     });
 
@@ -48,7 +48,19 @@ export const enemy = {
     });
   },
   moveGoblin() {
-    this.goblin.anims.play('goblin_idle', true);
+    this.goblin.anims.play('goblin_run', true);
+    var tween = gameContent.scene.tweens.add({
+      targets : this.goblin,
+      x : gameContent.world.goblin1Start.x - 20,
+      ease : "Linear",
+      duration : 1500,
+      yoyo : true,
+      repeat : -1,
+      onStart : function (){},
+      onComplete : function (){},
+      onYoyo : function (){ gameContent.enemy.goblin.flipX = !gameContent.enemy.goblin.flipX},
+      onRepeat : function (){gameContent.enemy.goblin.flipX = !gameContent.enemy.goblin.flipX}
+    });
   }, 
   killGoblin() {
     if(!this.isHit) {
