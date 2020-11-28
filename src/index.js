@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
+import Enemy from './objects/enemyClass';
 
 import { player } from './objects/player';
-import { enemy } from './objects/enemy';
 import { world } from './objects/world';
 
 const config = {
@@ -28,7 +28,7 @@ export const gameContent = {
   scene: null,
   world,
   player,
-  enemy,
+  enemy: {},
   cursor: null, 
 };
 
@@ -60,10 +60,19 @@ function create() {
 
   world.initMap(scene);
 
-  enemy.initGoblin(scene);
-  enemy.generateGoblinAnimations(scene);
-  enemy.moveGoblin();
+  function randomIntFromInterval(min, max) {  
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
 
+  world.goblinStart.forEach((item, idx) => {
+    enemy[idx] = new Enemy(gameContent, world.goblinStart[idx].x, world.goblinStart[idx].y);
+    enemy[idx].init();
+    enemy[idx].moveGoblin(
+      enemy[idx],
+      randomIntFromInterval(60, 100),
+      randomIntFromInterval(900, 1600),
+    );
+  });
 
   player.initPlayer(scene);
   player.generatePlayerAnimations(scene);

@@ -120,7 +120,11 @@ export const player = {
       }
     }
   },
-  killPlayer() {
-    this.isAlive = false;
+  attackGoblin(idx) {
+    if(this.isAttack || gameContent.enemy[idx].isHit) {
+      gameContent.enemy[idx].killGoblin();
+    } else {
+      gameContent.world.killPlayer();
+    }
   }
 };

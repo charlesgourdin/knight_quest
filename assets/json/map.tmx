@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="32" tileheight="32" nextobjectid="25">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="32" tileheight="32" nextobjectid="50">
  <tileset firstgid="1" name="tilesheet" tilewidth="32" tileheight="32" tilecount="180" columns="18">
   <image source="../images/tilesheet.png" width="576" height="320"/>
   <tile id="0">
@@ -2710,6 +2710,31 @@
   <object id="21" gid="101" x="287" y="348" width="32" height="32"/>
   <object id="22" gid="101" x="289" y="351" width="32" height="32"/>
   <object id="23" gid="101" x="289" y="350" width="32" height="32"/>
-  <object id="24" name="goblin1Start" gid="101" x="288" y="349" width="32" height="32"/>
+  <object id="24" name="goblin0Start" gid="101" x="288" y="349" width="32" height="32"/>
+  <object id="25" gid="85" x="763" y="371" width="32" height="32"/>
+  <object id="26" gid="85" x="724" y="392" width="32" height="32"/>
+  <object id="27" gid="85" x="690" y="419" width="32" height="32"/>
+  <object id="28" gid="85" x="713" y="409" width="32" height="32"/>
+  <object id="29" gid="85" x="702" y="409" width="32" height="32"/>
+  <object id="30" gid="85" x="707" y="420" width="32" height="32"/>
+  <object id="31" gid="85" x="702" y="414" width="32" height="32"/>
+  <object id="32" gid="85" x="704" y="413" width="32" height="32"/>
+  <object id="33" gid="85" x="703" y="413" width="32" height="32"/>
+  <object id="34" gid="85" x="707" y="414" width="32" height="32"/>
+  <object id="35" gid="85" x="701" y="412" width="32" height="32"/>
+  <object id="36" gid="85" x="704" y="413" width="32" height="32"/>
+  <object id="37" name="goblin1Start" gid="85" x="703" y="412" width="32" height="32"/>
+  <object id="38" gid="84" x="1141" y="187" width="32" height="32"/>
+  <object id="39" gid="84" x="1158" y="193" width="32" height="32"/>
+  <object id="40" gid="84" x="1146" y="181" width="32" height="32"/>
+  <object id="41" gid="84" x="1154" y="187" width="32" height="32"/>
+  <object id="42" gid="84" x="1152" y="185" width="32" height="32"/>
+  <object id="43" name="goblin2Start" gid="84" x="1152" y="186" width="32" height="32"/>
+  <object id="44" gid="84" x="1796" y="352" width="32" height="32"/>
+  <object id="45" gid="84" x="1789" y="351" width="32" height="32"/>
+  <object id="46" gid="84" x="1791" y="350" width="32" height="32"/>
+  <object id="47" gid="84" x="1814" y="348" width="32" height="32"/>
+  <object id="48" name="goblin3Start" gid="84" x="1817" y="349" width="32" height="32"/>
+  <object id="49" gid="84" x="1609" y="222" width="32" height="32"/>
  </objectgroup>
 </map>

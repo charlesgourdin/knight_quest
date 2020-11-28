@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { game, gameContent } from '../index';
+import { gameContent } from '../index';
 
 export const world = {
   tileMap: null,
@@ -11,7 +11,7 @@ export const world = {
   worldLayer: null,
   backgroundLayer: null,
   startposition: null,
-  goblin1Start: null,
+  goblinStart: null,
   score: 0,
   scoreText: null,
   worldSound : null,
@@ -36,7 +36,10 @@ export const world = {
 
     this.startposition = this.tileMap.findObject('Objects', obj => obj.name === 'start');
 
-    this.goblin1Start = this.tileMap.findObject('Objects', obj => obj.name === 'goblin1Start');
+    this.goblinStart = new Array(4).fill('').map((item, idx) => {
+      console.log('ici')
+      return this.tileMap.findObject('Objects', obj => obj.name === `goblin${idx}Start`);
+    })
 
     this.worldLayer.setCollisionByProperty({ Collides: true });
 
@@ -50,8 +53,12 @@ export const world = {
     scene.physics.add.collider(player.hero, this.worldLayer);
     scene.physics.add.overlap(player.hero, this.overlapLayer);
 
-    scene.physics.add.collider(enemy.goblin, this.worldLayer);
-    scene.physics.add.overlap(player.hero, enemy.goblin, this.attackGoblin);
+    Object.values(enemy).forEach((item, idx) => {
+      const {goblin} = item;
+      scene.physics.add.overlap(player.hero, goblin, () => gameContent.player.attackGoblin(idx));
+      scene.physics.add.collider(goblin, this.worldLayer);
+    })
+
 
   },
   handleCamera(scene, player) {
@@ -71,7 +78,7 @@ export const world = {
 
     if(!this.gameOver) {
       this.gameOver = true;
-      gameContent.player.killPlayer();
+      gameContent.player.isAlive = false;
 
       setTimeout(function() {
         gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
@@ -97,13 +104,6 @@ export const world = {
           gameContent.scene.scene.restart();
         });
       }, 1000);
-    }
-  }, 
-  attackGoblin() {
-    if(gameContent.player.isAttack) {
-      gameContent.enemy.killGoblin();
-    } else {
-      gameContent.world.killPlayer();
     }
   }
 };

@@ -1,17 +1,30 @@
-import { gameContent } from '../index';
-import { world } from './world';
+class Enemy {
+  constructor(game, xPos, yPos, xStance) {
+    this.game = game;
+    this.goblin = null;
+    this.isHit = false;
+    this.xPos = xPos;
+    this.yPos = yPos;
+  };
 
-export const enemy = {
-  goblin: null,
-
-  initGoblin(scene) {
-    this.goblin = scene.physics.add.sprite(
-      400, world.startposition.y - 30, 'goblin', 'goblin_idle_0'
+  init() {
+    this.goblin = this.game.scene.physics.add.sprite(
+      this.xPos,
+      this.yPos - 30,
+      'goblin',
+      'goblin_idle_0'
       ).setFlip(true, false);
+
     this.goblin.setSize(30, 60, true);
+
     this.goblin.setOrigin(0.5, 1);
-  },
-  generateGoblinAnimations(scene) {
+
+    this.generateGoblinAnimations();
+  };
+
+  generateGoblinAnimations() {
+    const { scene } = this.game;
+
     scene.anims.create({
       key: 'goblin_idle',
       frames: scene.anims.generateFrameNames('goblin', { prefix: 'goblin_idle_', start: 0, end: 3 }),
@@ -46,25 +59,32 @@ export const enemy = {
       frameRate: 8,
       repeat: 0,
     });
-  },
-  moveGoblin() {
+  };
+
+  moveGoblin(enemy, stance, duration) {
+    const { scene } = this.game;
+
     this.goblin.anims.play('goblin_run', true);
-    var tween = gameContent.scene.tweens.add({
+
+    var tween = scene.tweens.add({
       targets : this.goblin,
-      x : gameContent.world.goblin1Start.x - 20,
+      x : enemy.goblin.x - stance,
       ease : "Linear",
-      duration : 1500,
+      duration : duration,
       yoyo : true,
       repeat : -1,
       onStart : function (){},
       onComplete : function (){},
-      onYoyo : function (){ gameContent.enemy.goblin.flipX = !gameContent.enemy.goblin.flipX},
-      onRepeat : function (){gameContent.enemy.goblin.flipX = !gameContent.enemy.goblin.flipX}
+      onYoyo : function (){ enemy.goblin.flipX = !enemy.goblin.flipX},
+      onRepeat : function (){enemy.goblin.flipX = !enemy.goblin.flipX}
     });
-  }, 
+  };
+
   killGoblin() {
+    const { scene } = this.game;
+
     if(!this.isHit) {
-      gameContent.scene.sound.play('hit');
+      scene.sound.play('hit');
       this.isHit = true;
     }
     
@@ -73,5 +93,7 @@ export const enemy = {
     this.goblin.on('animationcomplete', function (sprite) {
       this.goblin.destroy();
     }, this)
-  }
+  };
 }
+
+export default Enemy;
