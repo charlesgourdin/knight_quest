@@ -32,6 +32,10 @@ export const gameContent = {
   cursor: null, 
 };
 
+let ost;
+let win;
+let winIsPlaying = false;
+
 function preload() {
   gameContent.scene = this;
   const { scene, cursor } = gameContent;
@@ -45,20 +49,30 @@ function preload() {
   scene.load.atlas('player', '../assets/images/player.png', '../assets/json/playerAtlas.json');
   scene.load.atlas('goblin', '../assets/images/goblin.png', '../assets/json/goblinAtlas.json');
 
+  scene.load.audio('OST', '../assets/sounds/OST.mp3');
   scene.load.audio('gemSound', '../assets/sounds/gem.ogg');
   scene.load.audio('sword1', '../assets/sounds/sword1.ogg');
   scene.load.audio('hit', '../assets/sounds/hit.ogg');
+  scene.load.audio('win', '../assets/sounds/win.mp3');
 
   player.isAlive = true;
   player.gameOver = false;
+  player.isAHero = false;
   world.gameOver = false;
   world.score = 0;
+  winIsPlaying = false;
 }
 
 function create() {
   const { scene, player, enemy, world } = gameContent;
 
   world.initMap(scene);
+
+  ost = this.sound.add('OST');
+  ost.play({
+    loop: true,
+    volume: 0.4  
+  });
 
   function randomIntFromInterval(min, max) {  
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -88,6 +102,18 @@ function create() {
 
 function update(time, delta) {
   const { player, cursor } = gameContent;
+
+  if(world.gameOver) {
+    ost.stop();
+
+    if(player.isAHero && !winIsPlaying) {
+      win = this.sound.add('win');
+      win.play({
+        volume: 0.4  
+      });
+      winIsPlaying = true;
+    }
+  }
 
   player.moveHero(cursor);
   handleScreenSize();

@@ -8,6 +8,7 @@ export const player = {
   isUpPressed: false,
   isSpacePressed: false,
   isAlive: true,
+  isAHero: false,
   gameOver: false,
 
   initPlayer(scene) {
@@ -55,7 +56,7 @@ export const player = {
     });
   },
   moveHero(cursor) {
-    if(this.isAlive && !this.gameOver) {
+    if(this.isAlive && !this.gameOver && !this.isAHero) {
       if (cursor.left.isDown) {
         this.hero.setVelocityX(-175);
         this.hero.setFlip(true, false);
@@ -108,7 +109,10 @@ export const player = {
         this.hero.anims.play('player_idle', true);
       }
     } else {
-      if(!this.gameOver) {
+      if(this.isAHero) {
+        this.hero.setVelocityX(0);
+        this.hero.anims.play('player_idle', true);
+      } else if(!this.gameOver) {
         this.hero.setVelocityX(0);
         this.hero.anims.play('player_death', true);
         this.hero.on('animationcomplete', function (sprite)

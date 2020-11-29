@@ -11,6 +11,7 @@ export const world = {
   worldLayer: null,
   backgroundLayer: null,
   startposition: null,
+  endPosition: null,
   goblinStart: null,
   score: 0,
   scoreText: null,
@@ -35,9 +36,9 @@ export const world = {
     this.overlapLayer = this.tileMap.createDynamicLayer('overlap', this.tileSet, 0, 0);
 
     this.startposition = this.tileMap.findObject('Objects', obj => obj.name === 'start');
+    this.endPosition = this.tileMap.findObject('Objects', obj => obj.name === 'heroEnd');
 
     this.goblinStart = new Array(4).fill('').map((item, idx) => {
-      console.log('ici')
       return this.tileMap.findObject('Objects', obj => obj.name === `goblin${idx}Start`);
     })
 
@@ -50,6 +51,8 @@ export const world = {
   addCollider(scene, player, enemy) {
     this.overlapLayer.setTileIndexCallback(98, this.collectGem, this);
     this.overlapLayer.setTileIndexCallback(166, this.killPlayer, this);
+    this.overlapLayer.setTileIndexCallback(100, this.endLevel, this);
+
     scene.physics.add.collider(player.hero, this.worldLayer);
     scene.physics.add.overlap(player.hero, this.overlapLayer);
 
@@ -74,11 +77,21 @@ export const world = {
     this.scoreText.setText(`Score : ${this.score}`);
   },
   killPlayer() {
+    this.panel('dead');
+  },
+  endLevel(player, tile) {
+    if(player.x > this.endPosition.x) {
+      this.panel('end');
+    }
+  },
+  panel(status) {
     const { midPoint } = gameContent.scene.cameras.main;
 
     if(!this.gameOver) {
       this.gameOver = true;
-      gameContent.player.isAlive = false;
+      status === 'dead'
+        ? gameContent.player.isAlive = false
+        : gameContent.player.isAHero = true;
 
       setTimeout(function() {
         gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
@@ -90,7 +103,11 @@ export const world = {
           align: 'center'
         };
 
-        gameContent.scene.add.text(midPoint.x, midPoint.y - 50, 'You are \ndead', fontStyle).setOrigin(0.5, 0.5)
+        gameContent.scene.add.text(
+          midPoint.x,
+          midPoint.y - 50,
+          `You are \n${status === 'dead' ? 'dead' : 'a hero!'}`,
+          fontStyle).setOrigin(0.5, 0.5)
 
         let container = gameContent.scene.add.container(50, 50);;
         container.setPosition(midPoint.x + 45, midPoint.y + 100);
