@@ -7,6 +7,7 @@ import { world } from './objects/world';
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#f8e9cb',
+  // backgroundColor: '#afd0e3',
   width: 800,
   height: 600,
   scene: {
@@ -39,6 +40,11 @@ let isGameOverSound = false;
 function preload() {
   gameContent.scene = this;
   const { scene, cursor } = gameContent;
+
+  scene.load.image('mountains-back', 'assets/images/mountains-back.png');
+	scene.load.image('mountains-mid1', 'assets/images/mountains-mid1.png');
+  scene.load.image('mountains-mid2', 'assets/images/mountains-mid2.png');
+    
   scene.load.image('tiles', '../assets/images/tilesheet.png');
   scene.load.image('items', '../assets/images/items.png');
   scene.load.image('parchment', '../assets/images/parchment.png');

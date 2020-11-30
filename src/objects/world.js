@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { gameContent } from '../index';
 
 export const world = {
+  backgroundImg: {},
   tileMap: null,
   tileSet: null,
   itemSet: null,
@@ -26,6 +27,27 @@ export const world = {
     
     this.scoreText = scene.add.text(20, 20, `Score : ${this.score}`, fontStyle);
     this.scoreText.setScrollFactor(0);
+
+    this.backgroundImg.back = gameContent
+    .scene
+    .add
+    .sprite(0, 0, "mountains-back")
+    .setOrigin(0, 0)
+    .setScrollFactor(0, 1);
+
+    this.backgroundImg.mid = gameContent
+    .scene
+    .add
+    .sprite(0, 40, "mountains-mid1")
+    .setOrigin(0, 0)
+    .setScrollFactor(0.1, 1);
+
+    this.backgroundImg.front = gameContent
+    .scene
+    .add
+    .sprite(0, 300, "mountains-mid2")
+    .setOrigin(0, 0)
+    .setScrollFactor(0.3, 1);
 
     this.tileMap = scene.make.tilemap({ key: 'map' });
     this.tileSet = this.tileMap.addTilesetImage('tilesheet', 'tiles');
