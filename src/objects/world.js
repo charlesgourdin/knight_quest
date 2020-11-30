@@ -71,7 +71,7 @@ export const world = {
     );
   },
   collectGem(player, tile) {
-    gameContent.scene.sound.play('gemSound')
+    gameContent.scene.sound.play('gemSound', {volume: 0.2})
     this.overlapLayer.removeTileAt(tile.x, tile.y).destroy();
     this.score += 1;
     this.scoreText.setText(`Score : ${this.score}`);
