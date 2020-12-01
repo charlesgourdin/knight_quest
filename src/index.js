@@ -7,7 +7,6 @@ import { world } from './objects/world';
 const config = {
   type: Phaser.AUTO,
   backgroundColor: '#f8e9cb',
-  // backgroundColor: '#afd0e3',
   width: 800,
   height: 600,
   scene: {
@@ -83,13 +82,9 @@ function preload() {
 function create() {
   const { scene, player, enemy, world } = gameContent;
 
+  handleScreenSize();
+
   world.initMap(scene);
-  
-  // ost = this.sound.add('OST');
-  // ost.play({
-  //   loop: true,
-  //   volume: 0.4  
-  // });
 
   function randomIntFromInterval(min, max) {  
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -173,21 +168,20 @@ function startPanel() {
   if(!isReady) {
     let startSprite = gameContent.scene.add.sprite(
       0,
-      40,
+      0,
       "start"
-      ).setOrigin(0, 0);
+      )
+    .setOrigin(0, 0)
+    .setScrollFactor(0);
 
-    let container = gameContent.scene.add.container(50, 50);;
-    container.setPosition(midPoint.x + 450, midPoint.y + 190);
-    const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
-    var text = gameContent.scene.add.text(0, 0, 'Start');
+    const restartButton = gameContent.scene.add.image(500, 480, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
+    var text = gameContent.scene.add.text(500, 480, 'Start').setScrollFactor(0);
     text.setOrigin(0.5, 0.5);
-    container.add(restartButton);
-    container.add(text);
 
     restartButton.on("pointerup", function(){
+      restartButton.destroy();
+      text.destroy();
       startSprite.destroy();
-      container.destroy();
       isReady = true;
 
       ost = gameContent.scene.sound.add('OST');
