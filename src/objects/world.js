@@ -18,15 +18,21 @@ export const world = {
   scoreText: null,
   worldSound : null,
   gameOver: false,
+  isReady: false,
   initMap(scene) {
     const fontStyle = {
       fontSize: '1.5rem',
-      color: '#b3271d',
+      color: '##220a38',
       fontFamily: 'MedievalSharp',
     };
-    
-    this.scoreText = scene.add.text(20, 20, `Score : ${this.score}`, fontStyle);
-    this.scoreText.setScrollFactor(0);
+  
+
+    this.backgroundImg.back = gameContent
+    .scene
+    .add
+    .sprite(0, 0, "sky")
+    .setOrigin(0, 0)
+    .setScrollFactor(0, 1);
 
     this.backgroundImg.back = gameContent
     .scene
@@ -48,6 +54,10 @@ export const world = {
     .sprite(0, 300, "mountains-mid2")
     .setOrigin(0, 0)
     .setScrollFactor(0.3, 1);
+
+    scene.add.sprite(10, 10, 'emerald').setScrollFactor(0).setOrigin(0, 0);
+    this.scoreText = scene.add.text(40, 15, `${this.score}/5`, fontStyle).setOrigin(0, 0);
+    this.scoreText.setScrollFactor(0);
 
     this.tileMap = scene.make.tilemap({ key: 'map' });
     this.tileSet = this.tileMap.addTilesetImage('tilesheet', 'tiles');
@@ -84,7 +94,6 @@ export const world = {
       scene.physics.add.collider(goblin, this.worldLayer);
     })
 
-
   },
   handleCamera(scene, player) {
     scene.cameras.main.startFollow(player.hero);
@@ -96,7 +105,7 @@ export const world = {
     gameContent.scene.sound.play('gemSound', {volume: 0.2})
     this.overlapLayer.removeTileAt(tile.x, tile.y).destroy();
     this.score += 1;
-    this.scoreText.setText(`Score : ${this.score}`);
+    this.scoreText.setText(`${this.score}/5`);
   },
   killPlayer() {
     this.panel('dead');
@@ -116,23 +125,14 @@ export const world = {
         : gameContent.player.isAHero = true;
 
       setTimeout(function() {
-        gameContent.scene.add.sprite(midPoint.x, midPoint.y, "parchment");
-
-        const fontStyle = {
-          fontSize: '3rem',
-          color: '#5d0000',
-          fontFamily: 'MedievalSharp',
-          align: 'center'
-        };
-
-        gameContent.scene.add.text(
+        gameContent.scene.add.sprite(
           midPoint.x,
-          midPoint.y - 50,
-          `You are \n${status === 'dead' ? 'dead' : 'a hero!'}`,
-          fontStyle).setOrigin(0.5, 0.5)
+          midPoint.y,
+          status === 'dead' ? "dead" : "win"
+          );
 
         let container = gameContent.scene.add.container(50, 50);;
-        container.setPosition(midPoint.x + 45, midPoint.y + 100);
+        container.setPosition(midPoint.x + 70, midPoint.y + 150);
         const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
         var text = gameContent.scene.add.text(0, 0, 'Restart');
         text.setOrigin(0.5, 0.5);
@@ -144,5 +144,5 @@ export const world = {
         });
       }, 1000);
     }
-  }
+  }, 
 };

@@ -36,17 +36,25 @@ export const gameContent = {
 let ost;
 let gameOverSound;
 let isGameOverSound = false;
+let isReady = false;
 
 function preload() {
   gameContent.scene = this;
   const { scene, cursor } = gameContent;
 
+  scene.load.image('sky', 'assets/images/sky.jpg');
   scene.load.image('mountains-back', 'assets/images/mountains-back.png');
 	scene.load.image('mountains-mid1', 'assets/images/mountains-mid1.png');
   scene.load.image('mountains-mid2', 'assets/images/mountains-mid2.png');
     
   scene.load.image('tiles', '../assets/images/tilesheet.png');
   scene.load.image('items', '../assets/images/items.png');
+  scene.load.image('emerald', '../assets/images/emerald.png');
+
+  scene.load.image('start', '../assets/images/start.png');
+  scene.load.image('dead', '../assets/images/dead.png');
+  scene.load.image('win', '../assets/images/win.png');
+
   scene.load.image('parchment', '../assets/images/parchment.png');
   scene.load.image('restart', '../assets/images/restart.png');
 
@@ -69,18 +77,19 @@ function preload() {
   world.score = 0;
   isGameOverSound = false;
   gameOverSound = null;
+  isReady = false;
 }
 
 function create() {
   const { scene, player, enemy, world } = gameContent;
 
   world.initMap(scene);
-
-  ost = this.sound.add('OST');
-  ost.play({
-    loop: true,
-    volume: 0.4  
-  });
+  
+  // ost = this.sound.add('OST');
+  // ost.play({
+  //   loop: true,
+  //   volume: 0.4  
+  // });
 
   function randomIntFromInterval(min, max) {  
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -106,32 +115,37 @@ function create() {
   gameContent.cursor = scene.input.keyboard.createCursorKeys();
 
   world.handleCamera(scene, player);
+
+  startPanel();
 }
 
 function update(time, delta) {
-  const { player, cursor } = gameContent;
+  const { player, cursor, world } = gameContent;
 
-  if(world.gameOver) {
-    ost.stop();
-
-    if(player.isAHero && !isGameOverSound) {
-      gameOverSound = this.sound.add('win');
-      gameOverSound.play({
-        volume: 0.4  
-      });
-      isGameOverSound = true;
+  if(isReady) {
+    if(world.gameOver) {
+      ost.stop();
+  
+      if(player.isAHero && !isGameOverSound) {
+        gameOverSound = this.sound.add('win');
+        gameOverSound.play({
+          volume: 0.4  
+        });
+        isGameOverSound = true;
+      }
+  
+      if(!player.isAlive && !isGameOverSound) {
+        gameOverSound = this.sound.add('death');
+        gameOverSound.play({
+          volume: 0.4  
+        });
+        isGameOverSound = true;
+      }
     }
-
-    if(!player.isAlive && !isGameOverSound) {
-      gameOverSound = this.sound.add('death');
-      gameOverSound.play({
-        volume: 0.4  
-      });
-      isGameOverSound = true;
-    }
+  
+    player.moveHero(cursor);
   }
 
-  player.moveHero(cursor);
   handleScreenSize();
 }
 
@@ -150,5 +164,37 @@ function handleScreenSize() {
   } else {
     canvas.style.width = `${winHeight * gameRatio}px`;
     canvas.style.height = `${winHeight}px`;
+  }
+};
+
+function startPanel() {
+  const { midPoint } = gameContent.scene.cameras.main;
+
+  if(!isReady) {
+    let startSprite = gameContent.scene.add.sprite(
+      0,
+      40,
+      "start"
+      ).setOrigin(0, 0);
+
+    let container = gameContent.scene.add.container(50, 50);;
+    container.setPosition(midPoint.x + 450, midPoint.y + 190);
+    const restartButton = gameContent.scene.add.image(0, 0, "restart").setScale(0.12, 0.12).setInteractive({ cursor: 'pointer' });
+    var text = gameContent.scene.add.text(0, 0, 'Start');
+    text.setOrigin(0.5, 0.5);
+    container.add(restartButton);
+    container.add(text);
+
+    restartButton.on("pointerup", function(){
+      startSprite.destroy();
+      container.destroy();
+      isReady = true;
+
+      ost = gameContent.scene.sound.add('OST');
+      ost.play({
+        loop: true,
+        volume: 0.4  
+      });
+    });
   }
 }
