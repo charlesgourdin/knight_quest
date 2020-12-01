@@ -5,11 +5,11 @@
   <img src="assets/images/capture2.png" alt="capture2" width="400">
 </p>
 
-https://phaser.io/
-
 ## Work in progress !!!
 
-but you can see progress here 😄 -> https://radiant-gorge-20745.herokuapp.com/
+but you can see progress here 😄
+
+### https://radiant-gorge-20745.herokuapp.com/
 
 Use arrow keys to move around and space bar to attack.
 
@@ -19,3 +19,6 @@ Credits :
 - Hero sprite sheet -> https://sventhole.artstation.com/
 - Goblin sprite sheet -> https://twitter.com/LuizGdeMelo
 - Music -> https://twitter.com/TheMusikage
+
+https://phaser.io/
+
